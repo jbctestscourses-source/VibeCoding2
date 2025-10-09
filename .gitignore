@@ -19,26 +19,23 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual Environment
-.venv/
+.env
+.venv
+env/
 venv/
 ENV/
-env/
-
-# Environment variables
-.env
-*.env
-
-# OAuth2 tokens
-google_tasks_token.json
-token.json
+env.bak/
+venv.bak/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
@@ -56,6 +53,7 @@ Thumbs.db
 *.tmp
 *.temp
 
-# Credentials (keep service account for reference, but be careful)
-# Personal project/fluid-house-473920-i1-cfa125ad75e1.json
-
+# API keys and secrets
+.env.local
+.env.production
+.env.development
