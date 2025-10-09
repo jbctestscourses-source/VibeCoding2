@@ -1,0 +1,22 @@
+# Dev environment
+pip
+autopep8
+
+# Mouse jiggler program
+pyautogui==0.9.54
+
+# Video downloader program
+yt-dlp
+
+# Browser automation for survey
+selenium
+webdriver-manager
+
+# Weather API for wave height
+requests
+
+# Google APIs
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2

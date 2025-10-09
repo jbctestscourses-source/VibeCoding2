@@ -1,0 +1,30 @@
+@startuml
+title Six Sigma Process Map (Swimlane)
+start
+
+partition "Customer" {
+  :Place Order;
+  :Receive Confirmation;
+}
+
+partition "Sales" {
+  :Validate Order;
+  if (Stock Available?) then (yes)
+    ->[A]
+  else (no)
+    :Send Backorder Notice;
+    stop;
+  endif
+}
+
+partition "Warehouse" {
+  [A]-> :Pick and Pack;
+  :Generate Shipping Label;
+  :Hand Off to Carrier;
+}
+
+partition "Customer" {
+  :Receive Goods;
+  stop
+}
+@enduml
