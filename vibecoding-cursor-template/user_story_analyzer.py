@@ -68,13 +68,36 @@ def initialize_gemini():
         api_key = st.secrets["gemini_api_key"]
         if api_key == "your_gemini_api_key_here":
             st.error("⚠️ Please update your Gemini API key in `.streamlit/secrets.toml`")
-            return None
+            return None, None
         
         genai.configure(api_key=api_key)
-        return genai.GenerativeModel('gemini-pro')
+        
+        # Try different model names in order of preference
+        model_names = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro']
+        
+        for model_name in model_names:
+            try:
+                model = genai.GenerativeModel(model_name)
+                # Test the model with a simple request
+                response = model.generate_content("Hello")
+                if response:
+                    st.success(f"✅ Connected to Gemini API using model: {model_name}")
+                    return model, model_name
+            except Exception as e:
+                continue
+        
+        # If all models fail, show available models
+        try:
+            available_models = genai.list_models()
+            st.error(f"❌ Could not connect to any Gemini model. Available models: {[m.name for m in available_models]}")
+        except:
+            st.error("❌ Could not connect to Gemini API. Please check your API key and internet connection.")
+        
+        return None, None
+        
     except Exception as e:
         st.error(f"❌ Error initializing Gemini API: {str(e)}")
-        return None
+        return None, None
 
 def generate_acceptance_criteria(model, user_story: str) -> str:
     """Generate acceptance criteria for a user story using Gemini."""
@@ -163,7 +186,7 @@ def main():
     """)
     
     # Initialize Gemini
-    model = initialize_gemini()
+    model, model_name = initialize_gemini()
     if model is None:
         st.stop()
     
@@ -178,6 +201,10 @@ def main():
         )
         
         analyze_button = st.button("🔍 Analyze Story", type="primary")
+        
+        st.markdown("---")
+        st.markdown(f"### 🤖 AI Model")
+        st.info(f"Using: {model_name}")
         
         st.markdown("---")
         st.markdown("### ℹ️ About This Tool")
