@@ -37,6 +37,8 @@ st.markdown("""
         border-radius: 8px;
         border-left: 4px solid #3498db;
         margin: 1rem 0;
+        color: #2c3e50;
+        font-weight: 500;
     }
     .criteria-item {
         background-color: #e8f4f8;
@@ -112,13 +114,19 @@ def generate_acceptance_criteria(model, user_story: str) -> str:
     
     User Story: "{user_story}"
     
-    Please provide:
-    1. Clear, testable acceptance criteria
-    2. Edge cases to consider
-    3. Success metrics
-    4. Definition of Done
+    Please provide acceptance criteria in the following format:
     
-    Format the response in a structured way with clear sections.
+    1. **Gherkin Format (Given-When-Then):**
+       - Use Given-When-Then syntax for each acceptance criteria
+       - Be specific and testable
+       - Include edge cases and error scenarios
+    
+    2. **Additional Considerations:**
+       - Edge cases to consider
+       - Success metrics
+       - Definition of Done
+    
+    Format the response with clear sections and use proper Gherkin syntax with Given, When, Then keywords.
     """
     
     try:
@@ -216,7 +224,7 @@ def main():
         st.markdown("### ℹ️ About This Tool")
         st.markdown("""
         This analyzer uses Google's Gemini AI to provide:
-        - **Acceptance Criteria**: Clear, testable requirements
+        - **Acceptance Criteria**: Gherkin format (Given-When-Then)
         - **INVEST Analysis**: Story splitting recommendations
         - **Critical Review**: Arguments against implementation
         """)
@@ -229,10 +237,10 @@ def main():
             st.markdown(f'<div class="story-card">{user_story}</div>', unsafe_allow_html=True)
             
             # Create tabs for different analyses
-            tab1, tab2, tab3 = st.tabs(["✅ Acceptance Criteria", "🔧 INVEST Analysis", "⚠️ Arguments Against"])
+            tab1, tab2, tab3 = st.tabs(["✅ Acceptance Criteria (Gherkin)", "🔧 INVEST Analysis", "⚠️ Arguments Against"])
             
             with tab1:
-                st.markdown('<div class="section-header">Acceptance Criteria & Definition of Done</div>', unsafe_allow_html=True)
+                st.markdown('<div class="section-header">Acceptance Criteria (Gherkin Format) & Definition of Done</div>', unsafe_allow_html=True)
                 criteria = generate_acceptance_criteria(model, user_story)
                 st.markdown(criteria)
             
