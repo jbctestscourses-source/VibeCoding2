@@ -72,8 +72,14 @@ def initialize_gemini():
         
         genai.configure(api_key=api_key)
         
-        # Try different model names in order of preference
-        model_names = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro']
+        # Try different model names in order of preference (using the correct format from your API)
+        model_names = [
+            'models/gemini-2.5-flash',           # Latest stable flash model
+            'models/gemini-2.0-flash',           # Alternative flash model
+            'models/gemini-flash-latest',        # Latest flash model
+            'models/gemini-2.5-pro',             # Pro model if available
+            'models/gemini-pro-latest'           # Fallback to latest pro
+        ]
         
         for model_name in model_names:
             try:
