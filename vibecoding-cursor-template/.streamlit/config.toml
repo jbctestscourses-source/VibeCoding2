@@ -1,0 +1,4 @@
+# Isto é uma variável de ambiente que só existe no executável
+# O Streamlit irá ler esta variável.
+# Isto irá sobrepor a necessidade de injetar a variável no run_app.py.
+server.folderWatchPaths = ["streamlit/static"]
